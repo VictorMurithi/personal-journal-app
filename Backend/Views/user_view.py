@@ -6,6 +6,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 user_bp = Blueprint('user_bp', __name__)
 
 @user_bp.route('/users', methods=['GET'])
+@jwt_required()
 def get_users():
     users = User.query.all()
     user_list = [{'id': user.id, 'username': user.username} for user in users]
