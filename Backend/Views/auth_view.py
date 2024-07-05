@@ -1,11 +1,11 @@
-from models import User
-from extentions import db
 from flask import Blueprint, request, jsonify
+from models import User
+from flask_jwt_extended import unset_jwt_cookies, jwt_required
+from extentions import db
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, unset_jwt_cookies
+from flask_jwt_extended import create_access_token
 
-auth_bp = Blueprint("auth_bp", __name__)
-
+auth_bp = Blueprint('auth_bp', __name__)
 
 @auth_bp.route("/login", methods=["POST"])
 def login():
@@ -48,18 +48,14 @@ def sign_up():
         if not data:
             return jsonify({"msg": "request body is missing or invalid"}), 400
         
-        username = data.get["username"]
-        email = data.get["email"]
-        password = data.get["password"]
+        username = data.get("username")
+        password = data.get("password")
 
-        if not username or not email or not password:
-            return jsonify({"msg": "username, email and password are required"}), 400
+        if not username or not password:
+            return jsonify({"msg": "username and password are required"}), 400
         
-        user = User.query.filter_by(email=email).first()
-        if user:
-            return jsonify({"msg": "User with this email already exists"}), 400
 
-        new_user = User(username=username, email=email)
+        new_user = User(username=username)
         new_user.set_password(password)
         db.session.add(new_user)
         db.session.commit()
