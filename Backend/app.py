@@ -1,6 +1,6 @@
 from flask import Flask
 from extentions import db, jwt, migrate
-from Views import auth_bp
+from Views import *
 from config import Config
 
 def create_app():
@@ -14,6 +14,7 @@ def create_app():
 
     # Register blueprints
     app.register_blueprint(auth_bp)
+    app.register_blueprint(journal_bp)
 
     return app
 
