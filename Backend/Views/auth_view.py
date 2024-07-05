@@ -12,23 +12,21 @@ def login():
     try:
         data = request.get_json()
         if not data:
-            return jsonify({"msg": "request body is missing or invalid"}), 400
+            return jsonify({"msg": "Request body is missing or invalid"}), 400
         
-        email = data.get["email"]
-        password = data.get["password"]
+        username = data.get("username")
+        password = data.get("password")
 
-        if not email or not password:
-            return jsonify({"msg": "email and password are required"}), 400
-        
-        user = User.query.filter_by(email=email).first()
-        if not user :
-            return jsonify({"msg": "Invalid email or password"}), 404
+        if not username or not password:
+            return jsonify({"msg": "Username and password are required"}), 400
 
-        if not check_password_hash(user.password_hash, password):
-            return jsonify({"msg": "Invalid email or password"}), 404
+        user = User.query.filter_by(username=username).first()
+        if not user or not user.check_password(password):
+            return jsonify({"msg": "Invalid credentials"}), 401
 
+        # If credentials are valid, generate access token
         access_token = create_access_token(identity=user.id, expires_delta=False)
-        
+
         response_data = {
             "message": "Login successful",
             "access_token": access_token
@@ -39,7 +37,7 @@ def login():
     except Exception as e:
         print(f"Error: {e}")
         return jsonify({"msg": "An error occurred while processing your request"}), 500
-    
+
 
 @auth_bp.route("/sign-up", methods=["POST"])
 def sign_up():
