@@ -1,21 +1,23 @@
 from flask import Flask
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
-from flask_sqlalchemy import SQLAlchemy
+from extentions import db,jwt,migrate
 from Views import *
+from config import Config
 
-app = Flask(__name__)
-db = SQLAlchemy()
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object(Config)
 
-app.config["JWT_SECRET_KEY"] = "super-secret"
-app.config [" SQLALCHEMY_DATABASE_URI"] = "sqlite:///personal-journal.db"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    db.init_app(app)
+    jwt.init_app(app)
+    migrate.init_app(app,db)
 
-db.init_app(app)
-jwt = JWTManager(app)
+    # register blueprints
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(user_bp)
+    return app
 
-migrate = Migrate(app, db)
-
-app.register_blueprint(user_bp)
-app.register_blueprint(auth_bp)
-
+if __name__ == "__main__":
+    app = create_app()
+    app.run(debug=True)

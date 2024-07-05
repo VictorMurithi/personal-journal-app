@@ -1,4 +1,5 @@
-from models import *
+from models import User
+from extentions import db
 from flask import Blueprint, request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, unset_jwt_cookies
