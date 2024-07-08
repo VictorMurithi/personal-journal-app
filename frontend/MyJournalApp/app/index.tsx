@@ -5,9 +5,9 @@ import AppNavigator from '../navigation/AppNavigator';
 
 const App = () => {
   return (
-    <NavigationContainer>
+    <>
       <AppNavigator />
-    </NavigationContainer>
+    </>
   );
 };
 
