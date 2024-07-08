@@ -1,16 +1,16 @@
-// components/LoginScreen.js
+// components/SignupScreen.js
 
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import styled from 'styled-components/native';
 
-const LoginScreen = ({ navigation }) => {
+const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = async () => {
+  const handleSignup = async () => {
     try {
-      const response = await fetch('http://localhost:5000/login', {
+      const response = await fetch('http://localhost:5000/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <Container>
-      <Title>Login</Title>
+      <Title>Sign Up</Title>
       <Input
         placeholder="Email"
         value={email}
@@ -45,11 +45,11 @@ const LoginScreen = ({ navigation }) => {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <Button onPress={handleLogin}>
-        <ButtonText>Login</ButtonText>
+      <Button onPress={handleSignup}>
+        <ButtonText>Sign Up</ButtonText>
       </Button>
-      <SwitchAuth onPress={() => navigation.navigate('Signup')}>
-        <SwitchAuthText>Switch to Sign Up</SwitchAuthText>
+      <SwitchAuth onPress={() => navigation.navigate('Login')}>
+        <SwitchAuthText>Switch to Login</SwitchAuthText>
       </SwitchAuth>
     </Container>
   );
@@ -101,4 +101,4 @@ const SwitchAuthText = styled.Text`
   font-size: 16px;
 `;
 
-export default LoginScreen;
+export default SignupScreen;
