@@ -1,10 +1,10 @@
 import React from "react";
+import { View, Text } from "react-native";
 
-
-export default JournalScreen = () => {
+export default function JournalScreen() {
     return (
         <View>
-            <Text>Journal Screen</Text>
+            <Text>Journal</Text>
         </View>
     );
 }
