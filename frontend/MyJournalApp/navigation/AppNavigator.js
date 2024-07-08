@@ -8,12 +8,12 @@ const Stack = createStackNavigator();
 
 const AppNavigator = () => {
   return (
-    <NavigationContainer>
+    <>
       <Stack.Navigator>
         <Stack.Screen name="Auth" component={AuthNavigator} />
         <Stack.Screen name="Main" component={MainNavigator} />
       </Stack.Navigator>
-    </NavigationContainer>
+    </>
   );
 };
 

@@ -1,12 +1,10 @@
 import react from 'react';
 import { View, Text } from 'react-native';
 
-const SummaryScreen = () => {
+export default function SummaryScreen() {
     return (
         <View>
-            <Text>Summary</Text>
+            <Text>Summary Screen</Text>
         </View>
     );
-};  
-
-export default SummaryScreen
+}

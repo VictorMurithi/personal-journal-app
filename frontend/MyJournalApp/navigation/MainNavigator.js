@@ -1,5 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import JournalScreen from '../screens/JournalScreen';
 import SummaryScreen from '../screens/SummaryScreen';
 import SettingsScreen from '../screens/SettingsScreen';
